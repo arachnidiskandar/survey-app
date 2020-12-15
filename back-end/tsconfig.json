@@ -8,9 +8,9 @@
     "rootDir": "./src",                       
     "removeComments": true,                
     "typeRoots": [
-      "./node_modules@types",
-      "/.src/@types"
-    ],                       
+      "./node_modules/@types",
+      "./src/@types"
+    ],                          
     "esModuleInterop": true,                  
     "resolveJsonModule": true,
     "experimentalDecorators": true,        
@@ -19,8 +19,13 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@controllers/*": ["./src/crontrollers/*"],
-      "@models/*": ["./src/models/*"]
-    }  
-  }
+      "@controllers/*": ["./src/controllers/*"],
+      "@models/*": ["./src/models/*"],
+      "@views/*": ["./src/views/*"],
+      "@config/*": ["./src/config/*"]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ]
 }
