@@ -1,6 +1,7 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import http from 'http';
+import mongoose from 'mongoose';
 
 import config from '@config/config';
 import logging from '@config/logging';
@@ -9,6 +10,11 @@ import sampleRoutes from './routes/sample';
 
 const NAMESPACE = 'Server';
 const router = express();
+
+mongoose
+  .connect(config.mongo.uri, config.mongo.options)
+  .then(() => logging.info(NAMESPACE, 'Connected to mongoDB!'))
+  .catch((err) => logging.error(NAMESPACE, err.message, err));
 
 router.use((req, res, next) => {
   logging.info(NAMESPACE, `METHOD - [${req.method}], URL - [${req.url}], IP - [${req.socket.remoteAddress}]`);
@@ -47,4 +53,3 @@ const httpServer = http.createServer(router);
 httpServer.listen(config.server.port, () =>
   logging.info(NAMESPACE, `Server Running on ${config.server.hostname}:${config.server.port}`)
 );
-// mongodb+srv://survey_app_dev:<password>@cluster0.z12mh.mongodb.net/<dbname>?retryWrites=true&w=majority
