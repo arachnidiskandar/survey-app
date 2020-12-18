@@ -5,8 +5,7 @@ import mongoose from 'mongoose';
 
 import config from '@config/config';
 import logging from '@config/logging';
-
-import sampleRoutes from './routes/sample';
+import apiRouter from '@routes/routes';
 
 const NAMESPACE = 'Server';
 const router = express();
@@ -30,6 +29,7 @@ router.use((req, res, next) => {
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
+// eslint-disable-next-line consistent-return
 router.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
@@ -40,7 +40,7 @@ router.use((req, res, next) => {
   next();
 });
 
-router.use('/sample', sampleRoutes);
+router.use('/api', apiRouter);
 
 router.use((req, res) => {
   const error = new Error('not found');
